@@ -1,0 +1,130 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\usepackage{P:/Latex/Config/ReadOnly/calculationReportEN}
+\graphicspath{{pictures/}}
+\addbibresource{P:/Latex/Config/CodesNorms.bib}
+\usepackage[greek, british]{babel}
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+% Defined values
+% Remember to change these values below to fit the current project
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+\extrafloats{500}
+\newcommand{\project}{
+\begin{Huge}
+\color{red}{!PROJECTNAME!}
+\end{Huge}
+} 			%The project name for the client
+\newcommand{\masterDoc}{
+\begin{Huge}
+\color{red}{!DOCUMENTNAME!}
+\end{Huge}
+} 		%The filename displayed in the footer
+\newcommand{\location}{
+\begin{Huge}
+\color{red}{!LOCATION!}
+\end{Huge}
+}		%The location displayed in the report
+
+\newcommand{\norm}{
+\begin{Huge}
+\color{red}{!NORM!}
+\end{Huge}
+} 		%The norm used in this project, Eurocode or ASCE // NO SPECIFICS
+% For generating big tables I usually use https://www.tablesgenerator.com/
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+% Begin Document
+%-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 
+\begin{document}
+
+% The blue corner background, first page is different
+\ThisURCornerWallPaper{1}{P:/Latex/Style/ENG_OmegaBlue.jpg}
+
+
+% Set footer to the one used on the first page
+\begin{titlepage}
+\thispagestyle{fancyfirst}
+\begin{figure}[H]
+\vspace{-2cm}
+\includegraphics[width=85mm,keepaspectratio]{P:/Latex/Style/tebulo_EN_logo.jpg}
+\end{figure}
+\vspace{1cm}
+\begin{center}
+		\Huge{\project}\\
+		Design Specification\\
+			
+\end{center}
+\iffalse
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{voorblad}
+\end{figure}
+\fi
+%\vspace{-1cm}
+%Client contact info & Logo
+
+
+%Revision    
+
+\vspace{2cm} % use this to shift the table up to accomodate more revisions, negative numbers are allowed
+
+\Bollegraaf
+% Add more revision info to the top of the table, the table automatically sits at the bottom of the page, if it doesn't fit, remove some whitespace added by the use of vspace, or just add negative whitespace by entering a negative number
+\begin{table}[b]
+\centering
+\begin{tabular}{cccccc}
+00 & First issue & J. Koning & \answerbox & \today & \answerbox\\
+\hline
+\textit{Rev.} & \textit{Description} & \textit{Author} & \textit{Signature Client} & \textit{Date sent} & \textit{Date signed}\\
+
+\end{tabular}
+
+\end{table}
+
+\end{titlepage}
+
+
+\begin{absolutelynopagebreak}
+\tableofcontents
+
+\thispagestyle{empty}
+
+\end{absolutelynopagebreak}
+% Set new corner wallpaper, and simple footer with document name (set it correctly at the top of this document, this process is not automatic!) and the page number.
+\URCornerWallPaper{1}{P:/Latex/Style/ENG_volgblad_kop.jpg}
+\pagestyle{fancy}
+%Als er aardbevingen zijn of andere dingen binnen/buiten de standaard scope vallen, chapter 1 aanpassen
+\newpage
+%Make sure to fill in norm and projectname
+\input{chapters/1_general} 
+
+\newpage
+%Choose between earthquake on/off
+\includeversion{earthquake}
+%\excludeversion{earthquake}
+\input{chapters/2_profilesOptimizationConstructions} 
+
+\newpage
+%If any non standard connections are to be expected, this is where you outline those
+\input{chapters/3_connections}
+
+\newpage 
+% If ONLY bollegraaf platforms are used, make sure to turn UNPPlatform off
+% !!If visitor platforms are used, UNP Platform needs to be on as well!!
+\includeversion{UNPPlatform}
+%\excludeversion{UNPPlatform}
+\includeversion{visitorsPlatform}
+%\excludeversion{visitorsPlatform}
+\input{chapters/4_platformsHandrailsStairs}
+
+\newpage
+\input{chapters/5_calculations}
+
+%\newpage
+% Only turn on chapter 6 if there are drawings that need to be included. This will usually not be the case.
+%\input{chapters/6_drawings}
+
+\end{document}
